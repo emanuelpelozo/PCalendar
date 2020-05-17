@@ -2,6 +2,7 @@ package com.android.pcalendar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,23 +14,31 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    List<CalendarDay> dates;
+    private List<Date> dates;
+    private MDatesDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dates = new ArrayList<CalendarDay>();
+        database = Room.databaseBuilder(getApplicationContext(),
+                MDatesDatabase.class, "mdates")
+                .allowMainThreadQueries()
+                .build();
+
+
+
+//        dates = new ArrayList<CalendarDay>();
 
         Button buttonInicio = findViewById(R.id.button_marcar_inicio);
         final MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
-        final TextView textViewInicioCiclo = findViewById(R.id.text_view_inicio_ciclo);
 
         materialCalendarView.state().edit()
                 .setMinimumDate(CalendarDay.from(2000, 1, 1))
@@ -59,9 +68,17 @@ public class MainActivity extends AppCompatActivity {
                     dialog.show();
                 }
                 else {
-                    dates.add(daySelected);
-                    materialCalendarView.addDecorator(new InicioCicloDecorator(Color.GREEN,dates, MainActivity.this));
-                    textViewInicioCiclo.setText(daySelected.getDate().toString());
+//                    dates.add(daySelected);
+
+//                    database.mDateDao().addNewCycleStart(daySelected.getDay(),daySelected.getMonth(),daySelected.getYear());
+
+                    Date date = new Date(daySelected.getYear(),daySelected.getMonth(),daySelected.getDay());
+
+                    database.mDateDao().addNewCycleStart(date);
+
+                    dates = database.mDateDao().getAllMDates();
+                    materialCalendarView.addDecorator(new
+                            InicioCicloDecorator(Color.GREEN,dates, MainActivity.this));
                 }
             }
         });
