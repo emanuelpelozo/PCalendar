@@ -1,4 +1,4 @@
-package com.android.pcalendar;
+package com.android.pcalendar.view;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -8,23 +8,22 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
+import com.android.pcalendar.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-public class InicioCicloDecorator implements DayViewDecorator {
+public class CycleStartDecorator implements DayViewDecorator {
 
-    private final int color;
     private final HashSet<Date> dates;
     private Drawable drawable;
 
-    public InicioCicloDecorator(int color, Collection<Date> dates, Activity context) {
-        this.color = color;
+    public CycleStartDecorator(Collection<Date> dates, Activity context) {
+
         this.dates = new HashSet<>(dates);
         this.drawable = context.getDrawable(R.drawable.inicio_ciclo_selector);
 
