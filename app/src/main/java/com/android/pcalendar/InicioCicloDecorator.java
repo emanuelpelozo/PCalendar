@@ -28,8 +28,6 @@ public class InicioCicloDecorator implements DayViewDecorator {
         this.dates = new HashSet<>(dates);
         this.drawable = context.getDrawable(R.drawable.inicio_ciclo_selector);
 
-        System.out.println(dates.toString());
-
     }
 
     @Override

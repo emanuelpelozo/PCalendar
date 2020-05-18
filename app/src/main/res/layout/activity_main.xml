@@ -30,8 +30,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Estimar proximo ciclo"
-            android:id="@+id/button_estimar_ciclo" />
+            android:text="Eliminar marca"
+            android:id="@+id/buttom_eliminar_marca" />
 
     </LinearLayout>
 
