@@ -14,13 +14,16 @@ import com.android.pcalendar.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import org.threeten.bp.LocalDate;
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Date> dates;
+    private MaterialCalendarView calendarView;
     private MDatesDatabase database;
     private DecoratorMarksManager decoratorMarksManager;
     @Override
@@ -35,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonInicio = findViewById(R.id.button_marcar_inicio);
         Button buttonEliminar = findViewById(R.id.buttom_eliminar_marca);
-        final MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
-        this.decoratorMarksManager = new DecoratorMarksManager(materialCalendarView);
+        calendarView = findViewById(R.id.calendarView);
+        this.decoratorMarksManager = new DecoratorMarksManager(calendarView);
 
-        materialCalendarView.state().edit()
+        calendarView.state().edit()
                 .setMinimumDate(CalendarDay.from(2000, 1, 1))
                 .setMaximumDate(CalendarDay.from(2100, 12, 31))
                 .commit();
@@ -46,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         this.updateView();
 
         buttonInicio.setOnClickListener(
-                new ButtonDateInteractionClickListener(materialCalendarView,MainActivity.this) {
+                new ButtonDateInteractionClickListener(calendarView,MainActivity.this) {
                     @Override
                     public void onClick(View v) {
                         super.onClick(v);
 
-                        CalendarDay daySelected = materialCalendarView.getSelectedDate();
+                        CalendarDay daySelected = calendarView.getSelectedDate();
                         Date date = new Date(daySelected.getYear(), daySelected.getMonth(), daySelected.getDay());
                         database.mDateDao().addNewCycleStart(date);
                         updateView();
@@ -61,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         buttonEliminar.setOnClickListener(
-                new ButtonDateInteractionClickListener(materialCalendarView,MainActivity.this){
+                new ButtonDateInteractionClickListener(calendarView,MainActivity.this){
                     @Override
                     public void onClick(View v){
                         super.onClick(v);
 
-                        CalendarDay daySelected = materialCalendarView.getSelectedDate();
+                        CalendarDay daySelected = calendarView.getSelectedDate();
                         Date date = new Date(daySelected.getYear(),daySelected.getMonth(),daySelected.getDay());
                         database.mDateDao().deleteCycleStartFrom(date);
                         updateView();
@@ -81,5 +84,7 @@ public class MainActivity extends AppCompatActivity {
         List<Date> dates = database.mDateDao().getAllMDates();
         decoratorMarksManager.addDecorator(new CycleStartDecorator(dates, MainActivity.this));
 
+        LocalDate dateToday = LocalDate.now();
+        calendarView.addDecorator(new CurrentDayDecorator(dateToday, MainActivity.this));
     }
 }
