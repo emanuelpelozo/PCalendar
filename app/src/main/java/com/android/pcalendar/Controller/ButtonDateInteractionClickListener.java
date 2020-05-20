@@ -38,6 +38,8 @@ public class ButtonDateInteractionClickListener implements View.OnClickListener 
             AlertDialog dialog = builder.create();
 
             dialog.show();
+
+            System.out.println("HOOOOOOOOOOOOOOLAAAAAAA");
         }
     }
 }

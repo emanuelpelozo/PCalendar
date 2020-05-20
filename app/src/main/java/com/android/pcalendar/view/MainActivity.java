@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
-        Button buttonInicio = findViewById(R.id.button_marcar_inicio);
+        Button buttonInicio =  findViewById(R.id.button_marcar_inicio);
         Button buttonEliminar = findViewById(R.id.buttom_eliminar_marca);
         calendarView = findViewById(R.id.calendarView);
         this.decoratorMarksManager = new DecoratorMarksManager(calendarView);
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 .setMinimumDate(CalendarDay.from(2000, 1, 1))
                 .setMaximumDate(CalendarDay.from(2100, 12, 31))
                 .commit();
+
+        calendarView.setSelectedDate(LocalDate.now());
 
         this.updateView();
 
@@ -81,10 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateView(){
-        List<Date> dates = database.mDateDao().getAllMDates();
-        decoratorMarksManager.addDecorator(new CycleStartDecorator(dates, MainActivity.this));
 
         LocalDate dateToday = LocalDate.now();
         calendarView.addDecorator(new CurrentDayDecorator(dateToday, MainActivity.this));
+
+        List<Date> dates = database.mDateDao().getAllMDates();
+        decoratorMarksManager.addDecorator(new CycleStartDecorator(dates, MainActivity.this));
+
     }
 }
