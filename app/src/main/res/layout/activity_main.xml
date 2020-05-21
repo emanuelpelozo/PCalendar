@@ -9,12 +9,21 @@
 
 
 
-    <LinearLayout
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:text="Días desde la ultima marca:"
+        android:textSize="20dp"
+        android:gravity="center"/>
 
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:id="@+id/textViewDayCount"/>
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,6 +34,8 @@
         app:mcv_showOtherDates="all"
         app:mcv_selectionColor="#00F"
         />
+
+
 
 
     <LinearLayout
@@ -39,6 +50,7 @@
             android:layout_weight="1"
             android:text="Agregar marca"
             app:icon="@drawable/ic_add_circle_outline_black_24dp"
+            android:drawableTop="@drawable/ic_add_circle_outline_black_24dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:id="@+id/button_marcar_inicio"/>
             />
@@ -47,13 +59,23 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:text="Agregar marca"
+            android:text="Eliminar marca"
             app:icon="@drawable/ic_remove_circle_outline_black_24dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:id="@+id/buttom_eliminar_marca"/>
         />
 
+        <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:text="Estimar ciclo"
+        app:icon="@drawable/ic_date_range_black_24dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:id="@+id/sa"/>
+        />
 
     </LinearLayout>
+
 
 </LinearLayout>

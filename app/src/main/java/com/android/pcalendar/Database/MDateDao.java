@@ -22,4 +22,7 @@ public interface MDateDao {
 
     @Query("DELETE FROM mdates WHERE date = (:date) ")
     void deleteCycleStartFrom(Date date);
+
+    @Query("SELECT MAX(date) FROM mdates")
+    Date getLastDateRegistered();
 }
