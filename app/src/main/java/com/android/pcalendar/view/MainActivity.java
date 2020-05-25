@@ -3,6 +3,8 @@ package com.android.pcalendar.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +14,13 @@ import android.widget.TextView;
 import com.android.pcalendar.controller.ButtonDateInteractionClickListener;
 import com.android.pcalendar.database.MDatesDatabase;
 import com.android.pcalendar.R;
+import com.android.pcalendar.model.PCalculator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.threeten.bp.LocalDate;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Button buttonInicio =  findViewById(R.id.button_marcar_inicio);
-        Button buttonEliminar = findViewById(R.id.buttom_eliminar_marca);
+        Button buttonEliminar = findViewById(R.id.button_eliminar_marca);
+        Button buttonEstimarCiclo = findViewById(R.id.button_estimar_ciclo);
         calendarView = findViewById(R.id.calendarView);
         textViewDayCount = findViewById(R.id.textViewDayCount);
 
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         calendarView.setSelectedDate(LocalDate.now());
+        calendarView.setSelectionColor(Color.parseColor("#6666ff"));
 
         this.updateView();
 
@@ -82,6 +88,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        buttonEstimarCiclo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalendarDay daySelected = calendarView.getSelectedDate();
+                LocalDate date = daySelected.getDate();
+
+                cyclePredictionDecoration(date);
+
+            }
+        });
+
     }
 
 
@@ -107,4 +124,23 @@ public class MainActivity extends AppCompatActivity {
         return (int)( (todayDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
     }
 
+    private void cyclePredictionDecoration(LocalDate startDate){
+
+        Context context = MainActivity.this;
+        PCalculator pCalculator = new PCalculator(startDate);
+
+        List<LocalDate> nextPeriod = pCalculator.getNextPeriodDates(
+                PCalculator.CYCLE_DURATION,PCalculator.PERIOD_DURATION);
+        calendarView.addDecorator(new CycleEventDecorator(nextPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
+
+        List<LocalDate> ovulationPeriod = pCalculator.getOvulationDatesFromDuration(PCalculator.CYCLE_DURATION);
+        calendarView.addDecorator(new CycleEventDecorator(ovulationPeriod,context.getDrawable(R.drawable.ovulation_phase_indicator)));
+
+        List<LocalDate> preMenstrualPeriod = pCalculator.getPreMenstrualDates(PCalculator.CYCLE_DURATION);
+        calendarView.addDecorator(new CycleEventDecorator(preMenstrualPeriod,context.getDrawable(R.drawable.premenstrual_phase_indicator)));
+
+        List<LocalDate> actualMenstrualPeriod = pCalculator.getActualPeriodDates(PCalculator.PERIOD_DURATION);
+        calendarView.addDecorator(new CycleEventDecorator(actualMenstrualPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
+
+    }
 }

@@ -3,11 +3,10 @@ package com.android.pcalendar.view;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
 
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.android.pcalendar.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -15,36 +14,39 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import org.threeten.bp.LocalDate;
+
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-public class CycleStartDecorator implements DayViewDecorator {
+public class CycleEventDecorator implements DayViewDecorator {
 
-    private final HashSet<Date> dates;
+    private final HashSet<LocalDate> dates;
     private Drawable drawable;
 
-    public CycleStartDecorator(Collection<Date> dates, Activity context) {
+    public CycleEventDecorator (Collection<LocalDate> dates, Drawable drawableIndicator) {
 
         this.dates = new HashSet<>(dates);
+        this.drawable = drawableIndicator;
 
     }
 
+
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-
-        Date desiredDay = new Date(day.getYear(),day.getMonth(),day.getDay());
-
+        LocalDate desiredDay = day.getDate();
         return dates.contains(desiredDay);
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(25, Color.parseColor("#ff5c33")));
 
-//        view.addSpan(new ForegroundColorSpan(color));
-//        view.setBackgroundDrawable(drawable);
-        
+//        Drawable wrappedDrawable = DrawableCompat.wrap(this.drawable);
+//        DrawableCompat.setTint(wrappedDrawable, this.color);
+        view.setBackgroundDrawable(drawable);
+
+
     }
-
 }
