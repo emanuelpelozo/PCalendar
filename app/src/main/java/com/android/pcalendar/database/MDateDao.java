@@ -1,8 +1,6 @@
-package com.android.pcalendar.Database;
+package com.android.pcalendar.database;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Dao;
-import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.Date;

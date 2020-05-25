@@ -1,18 +1,16 @@
 package com.android.pcalendar.view;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.android.pcalendar.Controller.ButtonDateInteractionClickListener;
-import com.android.pcalendar.Database.MDatesDatabase;
+import com.android.pcalendar.controller.ButtonDateInteractionClickListener;
+import com.android.pcalendar.database.MDatesDatabase;
 import com.android.pcalendar.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;

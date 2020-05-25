@@ -1,8 +1,6 @@
-package com.android.pcalendar.Database;
+package com.android.pcalendar.database;
 
 import androidx.room.TypeConverter;
-
-import org.threeten.bp.LocalDate;
 
 import java.util.Date;
 

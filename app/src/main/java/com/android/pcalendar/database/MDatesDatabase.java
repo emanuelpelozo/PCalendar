@@ -1,4 +1,4 @@
-package com.android.pcalendar.Database;
+package com.android.pcalendar.database;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

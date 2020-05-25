@@ -1,4 +1,4 @@
-package com.android.pcalendar.Database;
+package com.android.pcalendar.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

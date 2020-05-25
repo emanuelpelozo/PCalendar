@@ -1,4 +1,4 @@
-package com.android.pcalendar.Controller;
+package com.android.pcalendar.controller;
 
 import android.content.Context;
 import android.view.View;
