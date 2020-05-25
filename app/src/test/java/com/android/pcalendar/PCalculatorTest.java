@@ -5,6 +5,7 @@ import com.android.pcalendar.model.PCalculator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.threeten.bp.LocalDate;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,8 +13,7 @@ import java.util.List;
 
 public class PCalculatorTest {
 
-    private Date start;
-    private Calendar cal;
+    private LocalDate start;
     private PCalculator pCalculator;
 
 
@@ -22,11 +22,8 @@ public class PCalculatorTest {
     public void setUp(){
 
         //Date 3-3-2020
-        this.cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 3);
-        this.start = cal.getTime();
+
+        this.start = LocalDate.of(2020,3,3);
 
         this.pCalculator = new PCalculator(start);
     }
@@ -36,7 +33,7 @@ public class PCalculatorTest {
         int cycleDuration = 28;
         int periodDuration = 5;
 
-        List<Date> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
+        List<LocalDate> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
 
         Assert.assertEquals(list.size(), periodDuration);
 
@@ -48,13 +45,10 @@ public class PCalculatorTest {
         int periodDuration = 5;
 
 
-        List<Date> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
+        List<LocalDate> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.APRIL);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        LocalDate expectedDate = LocalDate.of(2020,3,31);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate.equals(list.get(0)));
@@ -67,21 +61,14 @@ public class PCalculatorTest {
         int periodDuration = 3;
 
 
-        List<Date> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
+        List<LocalDate> list = pCalculator.getNextPeriodDates(cycleDuration, periodDuration);
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.APRIL);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate1 = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        LocalDate expectedDate1 = LocalDate.of(2020,3,31);
 
-        //Base date (3-3-2020) + 28 days = (2-4-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate2 = cal.getTime();
+        LocalDate expectedDate2 = expectedDate1.plusDays(1);
 
-        //Base date (3-3-2020) + 28 days = (3-4-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate3 = cal.getTime();
+        LocalDate expectedDate3 = expectedDate2.plusDays(1);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate1.equals(list.get(0)));
@@ -95,7 +82,7 @@ public class PCalculatorTest {
 
         int periodDuration = 5;
 
-        List<Date> list = pCalculator.getActualPeriodDates( periodDuration);
+        List<LocalDate> list = pCalculator.getActualPeriodDates( periodDuration);
         Assert.assertEquals(list.size(), periodDuration);
     }
 
@@ -104,13 +91,10 @@ public class PCalculatorTest {
 
         int periodDuration = 5;
 
-        List<Date> list = pCalculator.getActualPeriodDates(periodDuration);
+        List<LocalDate> list = pCalculator.getActualPeriodDates(periodDuration);
 
         //Base date (3-3-2020)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 3);
-        Date expectedDate = cal.getTime();
+        LocalDate expectedDate = LocalDate.of(2020,3,3);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate.equals(list.get(0)));
@@ -122,21 +106,16 @@ public class PCalculatorTest {
         int periodDuration = 3;
 
 
-        List<Date> list = pCalculator.getActualPeriodDates( periodDuration);
+        List<LocalDate> list = pCalculator.getActualPeriodDates( periodDuration);
 
         //Base date (3-3-2020)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 3);
-        Date expectedDate1 = cal.getTime();
+        LocalDate expectedDate1 = LocalDate.of(2020,3,3);
 
         //Base date (3-3-2020) + 1 = (4-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate2 = cal.getTime();
+        LocalDate expectedDate2 = expectedDate1.plusDays(1);
 
         //Base date (3-3-2020) + 2 = (5-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate3 = cal.getTime();
+        LocalDate expectedDate3 = expectedDate2.plusDays(1);
 
         Assert.assertTrue(expectedDate1.equals(list.get(0)));
         Assert.assertTrue(expectedDate2.equals(list.get(1)));
@@ -148,7 +127,7 @@ public class PCalculatorTest {
     public void getOvulationDatesFromBaseDateReturnsSameCantOfDaysAsOvulationDuration(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
+        List<LocalDate> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
 
         Assert.assertEquals(list.size(), PCalculator.OVULATION_DURATION);
 
@@ -158,14 +137,11 @@ public class PCalculatorTest {
     public void getOvulationDatesFromBaseDateReturnsTheCorrectFirstDate(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
+        List<LocalDate> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        //First ovulation date = (1-4-20) - 14 days = (18-3-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 18);
-        Date expectedDate = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        //First ovulation date = (31-3-20) - 14 days = (17-3-20)
+        LocalDate expectedDate = LocalDate.of(2020,3,17);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate.equals(list.get(0)));
@@ -176,29 +152,22 @@ public class PCalculatorTest {
     public void getOvulationDatesFromBaseDateReturnsTheCorrectDateSecuence(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
+        List<LocalDate> list = pCalculator.getOvulationDatesFromDuration(cycleDuration);
 
         //Ovulation duration = 4 (PCALENDAR.OVULATION_DURATION)
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        //First ovulation date = (1-4-20) - 14 days = (18-3-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 18);
-        Date expectedDate1 = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        //First ovulation date = (31-3-20) - 14 days = (17-3-20)
+        LocalDate expectedDate1 = LocalDate.of(2020,3,17);
 
-        //Second ovulation date = (1-4-20) - 13 days = (19-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate2 = cal.getTime();
+        //Second ovulation date = (31-3-20) - 13 days = (18-3-20)
+        LocalDate expectedDate2 = expectedDate1.plusDays(1);
 
-        //Third ovulation date = (1-4-20) - 12 days = (20-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate3 = cal.getTime();
+        //Second ovulation date = (31-3-20) - 12 days = (19-3-20)
+        LocalDate expectedDate3 = expectedDate2.plusDays(1);
 
-        //Fourth ovulation date = (1-4-20) - 11 days = (21-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate4 = cal.getTime();
-
+        //Second ovulation date = (31-3-20) - 13 days = (20-3-20)
+        LocalDate expectedDate4 = expectedDate3.plusDays(1);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate1.equals(list.get(0)));
@@ -213,7 +182,7 @@ public class PCalculatorTest {
     public void getPreMenstrualDatesFromBaseDateReturnsSameCantOfDaysAsOvulationDuration(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getPreMenstrualDates(cycleDuration);
+        List<LocalDate> list = pCalculator.getPreMenstrualDates(cycleDuration);
 
         Assert.assertEquals(PCalculator.PREMENSTRUAL_DURATION, list.size());
 
@@ -223,14 +192,11 @@ public class PCalculatorTest {
     public void getPreMenstrualDatesFromBaseDateReturnsTheCorrectFirstDate(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getPreMenstrualDates(cycleDuration);
+        List<LocalDate> list = pCalculator.getPreMenstrualDates(cycleDuration);
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        //First pre menstrual date = (1-4-20) - 2 days = (30-3-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 30);
-        Date expectedDate = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        //First pre menstrual date = (31-3-20) - 2 days = (29-3-20)
+        LocalDate expectedDate = LocalDate.of(2020,3,29);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate.equals(list.get(0)));
@@ -241,20 +207,16 @@ public class PCalculatorTest {
     public void getPremenstrualDatesFromBaseDateReturnsTheCorrectDateSecuence(){
         int cycleDuration = 28;
 
-        List<Date> list = pCalculator.getPreMenstrualDates(cycleDuration);
+        List<LocalDate> list = pCalculator.getPreMenstrualDates(cycleDuration);
 
         //Ovulation duration = 2 (PCALENDAR.PREMENSTRUAL_DURATION)
 
-        //Base date (3-3-2020) + 28 days = (1-4-20)
-        //First pre menstrual date = (1-4-20) - 2 days = (30-3-20)
-        cal.set(Calendar.YEAR, 2020);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
-        cal.set(Calendar.DAY_OF_MONTH, 30);
-        Date expectedDate1 = cal.getTime();
+        //Base date (3-3-2020) + 28 days = (31-3-20)
+        //First pre menstrual date = (31-3-20) - 2 days = (29-3-20)
+       LocalDate expectedDate1 = LocalDate.of(2020,3,29);
 
-        //Second pre menstrual date = (1-4-20) - 2 days = (31-3-20)
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date expectedDate2 = cal.getTime();
+        //Second pre menstrual date = (31-3-20) - 1 days = (30-3-20)
+        LocalDate expectedDate2 = expectedDate1.plusDays(1);
 
         //First date from the list must be equals to the expected date
         Assert.assertTrue(expectedDate1.equals(list.get(0)));
