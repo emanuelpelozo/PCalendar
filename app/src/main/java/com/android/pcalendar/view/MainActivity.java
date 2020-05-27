@@ -15,11 +15,14 @@ import com.android.pcalendar.controller.ButtonDateInteractionClickListener;
 import com.android.pcalendar.database.MDatesDatabase;
 import com.android.pcalendar.R;
 import com.android.pcalendar.model.PCalculator;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -91,10 +94,23 @@ public class MainActivity extends AppCompatActivity {
         buttonEstimarCiclo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CalendarDay daySelected = calendarView.getSelectedDate();
-                LocalDate date = daySelected.getDate();
+                ArrayList list1 = new ArrayList(Arrays.asList(25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40));
+                ArrayList list2 = new ArrayList(Arrays.asList(3,4,5,6,7,8,9,10));
 
-                cyclePredictionDecoration(date);
+                SpinerDialog spinerDialog = new SpinerDialog(MainActivity.this, list1, list2, new SpinerDialog.DialogListener() {
+                    @Override
+                    public void ready(int cycleElection, int periodElection) {
+                        cyclePredictionDecoration(cycleElection, periodElection);
+                    }
+
+                    @Override
+                    public void cancelled() {
+
+                    }
+                });
+
+                spinerDialog.show();
+
 
             }
         });
@@ -124,22 +140,24 @@ public class MainActivity extends AppCompatActivity {
         return (int)( (todayDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
     }
 
-    private void cyclePredictionDecoration(LocalDate startDate){
+    private void cyclePredictionDecoration( int cycleDuration, int periodDuration){
+
+        CalendarDay daySelected = calendarView.getSelectedDate();
+        LocalDate startDate = daySelected.getDate();
 
         Context context = MainActivity.this;
         PCalculator pCalculator = new PCalculator(startDate);
 
-        List<LocalDate> nextPeriod = pCalculator.getNextPeriodDates(
-                PCalculator.CYCLE_DURATION,PCalculator.PERIOD_DURATION);
+        List<LocalDate> nextPeriod = pCalculator.getNextPeriodDates(cycleDuration,periodDuration);
         calendarView.addDecorator(new CycleEventDecorator(nextPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
 
-        List<LocalDate> ovulationPeriod = pCalculator.getOvulationDatesFromDuration(PCalculator.CYCLE_DURATION);
+        List<LocalDate> ovulationPeriod = pCalculator.getOvulationDatesFromDuration(cycleDuration);
         calendarView.addDecorator(new CycleEventDecorator(ovulationPeriod,context.getDrawable(R.drawable.ovulation_phase_indicator)));
 
-        List<LocalDate> preMenstrualPeriod = pCalculator.getPreMenstrualDates(PCalculator.CYCLE_DURATION);
+        List<LocalDate> preMenstrualPeriod = pCalculator.getPreMenstrualDates(cycleDuration);
         calendarView.addDecorator(new CycleEventDecorator(preMenstrualPeriod,context.getDrawable(R.drawable.premenstrual_phase_indicator)));
 
-        List<LocalDate> actualMenstrualPeriod = pCalculator.getActualPeriodDates(PCalculator.PERIOD_DURATION);
+        List<LocalDate> actualMenstrualPeriod = pCalculator.getActualPeriodDates(periodDuration);
         calendarView.addDecorator(new CycleEventDecorator(actualMenstrualPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
 
     }
