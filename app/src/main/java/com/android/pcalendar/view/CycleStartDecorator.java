@@ -44,7 +44,7 @@ public class CycleStartDecorator implements DayViewDecorator {
 
 //        view.addSpan(new ForegroundColorSpan(color));
 //        view.setBackgroundDrawable(drawable);
-        
+
     }
 
 }
