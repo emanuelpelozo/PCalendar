@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -15,18 +16,16 @@ import com.android.pcalendar.controller.ButtonDateInteractionClickListener;
 import com.android.pcalendar.database.MDatesDatabase;
 import com.android.pcalendar.R;
 import com.android.pcalendar.model.PCalculator;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.threeten.bp.LocalDate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private MDatesDatabase database;
     private DecoratorMarksManager decoratorMarksManager;
     private TextView textViewDayCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,28 +91,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        buttonEstimarCiclo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList list1 = new ArrayList(Arrays.asList(25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40));
-                ArrayList list2 = new ArrayList(Arrays.asList(3,4,5,6,7,8,9,10));
+        buttonEstimarCiclo.setOnClickListener(v -> {
+            List<Integer> cycleOptions = IntStream
+                    .rangeClosed(PCalculator.MIN_CYCLE_DURATION,PCalculator.MAX_CYCLE_DURATION)
+                    .boxed().collect(Collectors.toList());
+            List<Integer> periodOptions = IntStream
+                    .rangeClosed(PCalculator.MIN_PERIOD_DURATION,PCalculator.MAX_PERIOD_DURATION)
+                    .boxed().collect(Collectors.toList());
 
-                SpinerDialog spinerDialog = new SpinerDialog(MainActivity.this, list1, list2, new SpinerDialog.DialogListener() {
-                    @Override
-                    public void ready(int cycleElection, int periodElection) {
-                        cyclePredictionDecoration(cycleElection, periodElection);
-                    }
+            SpinerDialog spinerDialog = new SpinerDialog(MainActivity.this, cycleOptions, periodOptions, new SpinerDialog.DialogListener() {
+                @Override
+                public void ready(int cycleElection, int periodElection) {
+                    cyclePredictionDecoration(cycleElection, periodElection);
+                }
 
-                    @Override
-                    public void cancelled() {
+                @Override
+                public void cancelled() {
 
-                    }
-                });
+                }
+            });
 
-                spinerDialog.show();
+            spinerDialog.show();
 
 
-            }
+            LinearLayout button_bar = findViewById(R.id.button_bar);
+            button_bar.removeViewAt(2);
+
         });
 
     }

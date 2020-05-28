@@ -5,10 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
 import com.android.pcalendar.R;
+import com.android.pcalendar.model.PCalculator;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.List;
@@ -23,10 +25,10 @@ public class SpinerDialog extends Dialog {
     private MaterialSpinner periodSpinner;
 
     public interface DialogListener {
+
         public void ready(int cycleElection, int periodElection);
         public void cancelled();
     }
-
     private DialogListener readyListener;
 
     public SpinerDialog(@NonNull Context context, List<Integer> cycleOptions, List<Integer> periodOptions, DialogListener listener ) {
@@ -52,28 +54,36 @@ public class SpinerDialog extends Dialog {
         cycleSpinner.setItems(this.cycleOptions);
         periodSpinner.setItems(this.periodOptions);
 
+        this.setStandardOptionsSelected();
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int n1 = cycleSpinner.getSelectedIndex();
-                int n2 = periodSpinner.getSelectedIndex();
 
-                int cycleElection = cycleOptions.get(n1);
-                int periodElection = periodOptions.get(n2);
+        buttonOk.setOnClickListener(v -> {
+            int n1 = cycleSpinner.getSelectedIndex();
+            int n2 = periodSpinner.getSelectedIndex();
 
-                readyListener.ready(cycleElection, periodElection);
-                SpinerDialog.this.dismiss();
-            }
+            int cycleElection = cycleOptions.get(n1);
+            int periodElection = periodOptions.get(n2);
+
+            readyListener.ready(cycleElection, periodElection);
+            SpinerDialog.this.dismiss();
         });
 
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                readyListener.cancelled();
-                SpinerDialog.this.dismiss();
-            }
+        buttonCancel.setOnClickListener(v -> {
+            readyListener.cancelled();
+            SpinerDialog.this.dismiss();
         });
+
     }
+
+    private void setStandardOptionsSelected() {
+
+        int stdCycleOptionIndex = this.cycleOptions.indexOf(PCalculator.STD_CYCLE_DURATION);
+        int stdPeriodOptionIndex = this.periodOptions.indexOf(PCalculator.STD_PERIOD_DURATION);
+
+        this.cycleSpinner.setSelectedIndex(stdCycleOptionIndex);
+        this.periodSpinner.setSelectedIndex(stdPeriodOptionIndex);
+    }
+
+
 }

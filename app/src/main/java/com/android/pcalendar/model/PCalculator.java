@@ -14,8 +14,12 @@ public class PCalculator {
 
     static final int CONSTANT_OV = 14;
     static final int CONSTANT_PREV = 2;
-    public static final int CYCLE_DURATION = 28;
-    public static final int PERIOD_DURATION = 5;
+    public static final int MIN_PERIOD_DURATION = 2;
+    public static final int MAX_PERIOD_DURATION = 7;
+    public static final int MIN_CYCLE_DURATION = 21;
+    public static final int MAX_CYCLE_DURATION = 35;
+    public static final int STD_CYCLE_DURATION = 28;
+    public static final int STD_PERIOD_DURATION = 5;
     public static final int OVULATION_DURATION = 4;
     public static final int PREMENSTRUAL_DURATION = 2;
     private final LocalDate start;
@@ -74,21 +78,7 @@ public class PCalculator {
             list.add(nextPeriod.minusDays(movAmount));
         }
 
-
         return list;
     }
-
-
-    private Date getDateFrom(Date baseDate, int movAmount){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(baseDate);
-
-        calendar.add(Calendar.DAY_OF_MONTH, movAmount);
-
-        System.out.println(calendar.getTime().toString());
-
-        return calendar.getTime();
-    }
-
 
 }
