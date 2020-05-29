@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:padding="4dp"
+            android:text="OVULATION"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ovulation_circle_info"
+            android:drawableTint="@color/colorOvulation"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:padding="4dp"
+            android:text="PRE MENSTRUAL"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ovulation_circle_info"
+            android:drawableTint="@color/colorPreMenstrual"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:padding="4dp"
+            android:text="PERIOD"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ovulation_circle_info"
+            android:drawableTint="@color/colorPeriod"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/dialogInfoOK"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Entendido"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

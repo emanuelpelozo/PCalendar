@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -186,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonInfo = findViewById(R.id.button_info);
 
+        buttonInfo.setOnClickListener(l->{
+
+            InfoDialog infoDialog = new InfoDialog(MainActivity.this);
+            infoDialog.show();
+        });
 
 
     }
