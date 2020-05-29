@@ -6,8 +6,11 @@ import androidx.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private MDatesDatabase database;
     private DecoratorMarksManager decoratorMarksManager;
     private TextView textViewDayCount;
+    private LinearLayout button_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,17 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
+
+        button_bar = findViewById(R.id.button_bar);
         Button buttonInicio =  findViewById(R.id.button_marcar_inicio);
         Button buttonEliminar = findViewById(R.id.button_eliminar_marca);
         Button buttonEstimarCiclo = findViewById(R.id.button_estimar_ciclo);
+        Button buttonInfo = findViewById(R.id.button_info);
+
+
         calendarView = findViewById(R.id.calendarView);
         textViewDayCount = findViewById(R.id.textViewDayCount);
+
 
         this.decoratorMarksManager = new DecoratorMarksManager(calendarView);
 
@@ -60,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
         calendarView.setSelectedDate(LocalDate.now());
         calendarView.setSelectionColor(Color.parseColor("#6666ff"));
+
+//        this.createBarCalendarEstimation();
 
         this.updateView();
 
@@ -103,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void ready(int cycleElection, int periodElection) {
                     cyclePredictionDecoration(cycleElection, periodElection);
+
+//                    button_bar.setVisibility(View.GONE);
+                    createBarCalendarEstimation();
+
                 }
 
                 @Override
@@ -114,10 +130,9 @@ public class MainActivity extends AppCompatActivity {
             spinerDialog.show();
 
 
-            LinearLayout button_bar = findViewById(R.id.button_bar);
-            button_bar.removeViewAt(2);
 
         });
+
 
     }
 
@@ -163,6 +178,28 @@ public class MainActivity extends AppCompatActivity {
 
         List<LocalDate> actualMenstrualPeriod = pCalculator.getActualPeriodDates(periodDuration);
         calendarView.addDecorator(new CycleEventDecorator(actualMenstrualPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
+
+    }
+
+
+    private void createBarCalendarEstimation(){
+
+        LinearLayout activity_main = findViewById(R.id.main_activity);
+
+        button_bar.setVisibility(View.GONE);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+
+        inflater.inflate(R.layout.button_bar_calendar_estimation, activity_main,true);
+
+        Button buttonLimpiarEstimacion = findViewById(R.id.button_limpiar_estimacion);
+        buttonLimpiarEstimacion.setOnClickListener(v -> {
+
+            activity_main.removeView(findViewById(R.id.button_bar_calendar_estimation));
+            button_bar.setVisibility(View.VISIBLE);
+        });
+
 
     }
 }
