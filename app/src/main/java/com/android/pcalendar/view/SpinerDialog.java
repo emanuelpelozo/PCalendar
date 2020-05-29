@@ -27,7 +27,6 @@ public class SpinerDialog extends Dialog {
     public interface DialogListener {
 
         public void ready(int cycleElection, int periodElection);
-        public void cancelled();
     }
     private DialogListener readyListener;
 
@@ -70,7 +69,6 @@ public class SpinerDialog extends Dialog {
 
 
         buttonCancel.setOnClickListener(v -> {
-            readyListener.cancelled();
             SpinerDialog.this.dismiss();
         });
 

@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         Button buttonInicio =  findViewById(R.id.button_marcar_inicio);
         Button buttonEliminar = findViewById(R.id.button_eliminar_marca);
         Button buttonEstimarCiclo = findViewById(R.id.button_estimar_ciclo);
-        Button buttonInfo = findViewById(R.id.button_info);
 
 
         calendarView = findViewById(R.id.calendarView);
@@ -70,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         calendarView.setSelectedDate(LocalDate.now());
         calendarView.setSelectionColor(Color.parseColor("#6666ff"));
-
-//        this.createBarCalendarEstimation();
 
         this.updateView();
 
@@ -115,21 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void ready(int cycleElection, int periodElection) {
                     cyclePredictionDecoration(cycleElection, periodElection);
-
-//                    button_bar.setVisibility(View.GONE);
                     createBarCalendarEstimation();
 
                 }
 
-                @Override
-                public void cancelled() {
-
-                }
             });
 
             spinerDialog.show();
-
-
 
         });
 
@@ -168,17 +157,11 @@ public class MainActivity extends AppCompatActivity {
         PCalculator pCalculator = new PCalculator(startDate);
 
         List<LocalDate> nextPeriod = pCalculator.getNextPeriodDates(cycleDuration,periodDuration);
-        calendarView.addDecorator(new CycleEventDecorator(nextPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
-
         List<LocalDate> ovulationPeriod = pCalculator.getOvulationDatesFromDuration(cycleDuration);
-        calendarView.addDecorator(new CycleEventDecorator(ovulationPeriod,context.getDrawable(R.drawable.ovulation_phase_indicator)));
-
         List<LocalDate> preMenstrualPeriod = pCalculator.getPreMenstrualDates(cycleDuration);
-        calendarView.addDecorator(new CycleEventDecorator(preMenstrualPeriod,context.getDrawable(R.drawable.premenstrual_phase_indicator)));
-
         List<LocalDate> actualMenstrualPeriod = pCalculator.getActualPeriodDates(periodDuration);
-        calendarView.addDecorator(new CycleEventDecorator(actualMenstrualPeriod,context.getDrawable(R.drawable.period_phase_indicator)));
 
+        this.decoratorMarksManager.addCalendarEstimationDecoration(context,nextPeriod,ovulationPeriod,preMenstrualPeriod,actualMenstrualPeriod);
     }
 
 
@@ -198,7 +181,11 @@ public class MainActivity extends AppCompatActivity {
 
             activity_main.removeView(findViewById(R.id.button_bar_calendar_estimation));
             button_bar.setVisibility(View.VISIBLE);
+            decoratorMarksManager.deleteCalendarEstimationDecoration();
         });
+
+        Button buttonInfo = findViewById(R.id.button_info);
+
 
 
     }
