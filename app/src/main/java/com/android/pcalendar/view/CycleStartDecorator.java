@@ -7,13 +7,11 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
 
 import com.android.pcalendar.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Collection;
 import java.util.Date;
@@ -27,6 +25,8 @@ public class CycleStartDecorator implements DayViewDecorator {
     public CycleStartDecorator(Collection<Date> dates, Activity context) {
 
         this.dates = new HashSet<>(dates);
+        this.drawable = context.getDrawable(R.drawable.start_cycle_selector);
+
 
     }
 
@@ -40,10 +40,9 @@ public class CycleStartDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(25, Color.parseColor("#ff5c33")));
+//        view.addSpan(new DotSpan(25, Color.parseColor("#ff5c33")));
 
-//        view.addSpan(new ForegroundColorSpan(color));
-//        view.setBackgroundDrawable(drawable);
+        view.setBackgroundDrawable(drawable);
 
     }
 

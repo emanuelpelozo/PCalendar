@@ -6,4 +6,7 @@
     <color name="colorOvulation">#3399ff</color>
     <color name="colorPreMenstrual">#FFCC00</color>
     <color name="colorPeriod">#FF9966</color>
+    <color name="colorSelection">#E60073</color>
+    <color name="colorTodayMark">#800080</color>
+    <color name="colorStartCycleMark">#9966FF</color>
 </resources>

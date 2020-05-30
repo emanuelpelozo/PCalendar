@@ -9,30 +9,46 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:justificationMode="inter_word"
+            android:text="Información"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:padding="10dp"
+            android:justificationMode="inter_word"
+            android:text="Las diferentes facetas dentro del mes estan indicadas con diferentes colores: "/>
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:padding="4dp"
-            android:text="OVULATION"
+            android:text="Dias de ovulación"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ovulation_circle_info"
             android:drawableTint="@color/colorOvulation"/>
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:padding="4dp"
-            android:text="PRE MENSTRUAL"
+            android:text="Días pre menstruales"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ovulation_circle_info"
             android:drawableTint="@color/colorPreMenstrual"/>
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:padding="4dp"
-            android:text="PERIOD"
+            android:text="Dias de menstruación"
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/ovulation_circle_info"
             android:drawableTint="@color/colorPeriod"/>

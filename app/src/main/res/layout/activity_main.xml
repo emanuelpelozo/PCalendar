@@ -31,10 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:mcv_showOtherDates="all"
-        app:mcv_selectionColor="#00F"
+        app:mcv_selectionColor="@color/colorSelection"
         />
-
-
 
 
     <LinearLayout
@@ -46,7 +44,7 @@
 
         <Button
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_weight="1"
             android:text="Agregar marca"
             app:icon="@drawable/ic_add_circle_outline_black_24dp"
@@ -56,7 +54,7 @@
 
         <Button
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_weight="1"
             android:text="Eliminar marca"
             app:icon="@drawable/ic_remove_circle_outline_black_24dp"
@@ -64,13 +62,13 @@
             android:id="@+id/button_eliminar_marca"/>
 
         <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:text="Estimar ciclo"
-        app:icon="@drawable/ic_date_range_black_24dp"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-        android:id="@+id/button_estimar_ciclo"/>
+            android:layout_height="wrap_content"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:text="Estimar ciclo"
+            app:icon="@drawable/ic_date_range_black_24dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:id="@+id/button_estimar_ciclo"/>
 
     </LinearLayout>
 

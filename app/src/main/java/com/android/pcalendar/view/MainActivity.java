@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         calendarView.setSelectedDate(LocalDate.now());
-        calendarView.setSelectionColor(Color.parseColor("#6666ff"));
 
         this.updateView();
 

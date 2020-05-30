@@ -10,16 +10,16 @@
 
     <Button
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_weight="1"
-            android:text="Limpiar estimacion"
-            app:icon="@drawable/ic_delete_sweep_black_24dp"
+            android:text="Volver"
+            app:icon="@drawable/ic_keyboard_backspace_black_24dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:id="@+id/button_limpiar_estimacion"/>
 
     <Button
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_weight="1"
             android:text="Informacion"
             app:icon="@drawable/ic_info_outline_black_24dp"
