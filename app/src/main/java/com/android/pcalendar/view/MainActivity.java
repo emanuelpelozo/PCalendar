@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         calendarView.setSelectedDate(LocalDate.now());
-
+//        CharSequence[] months = {"Ene","Feb","Marzo","Abril","Mayo","JUn","H","H","H","H","H","H"};
+//        calendarView.setTitleMonths(months);
         this.updateView();
 
         buttonInicio.setOnClickListener(

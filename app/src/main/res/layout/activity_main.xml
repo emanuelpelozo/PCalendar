@@ -4,34 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".view.MainActivity"
-    android:id="@+id/main_activity">
+    android:id="@+id/main_activity"
+    android:orientation="vertical"
+    android:background="#BB86FC"
+    >
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Días desde la ultima marca:"
-        android:textSize="20dp"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:padding="6sp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="25dp"
-        android:gravity="center"
-        android:id="@+id/textViewDayCount"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Días desde la ultima marca:"
+            android:textSize="20dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:id="@+id/textViewDayCount"
+            />
+
+    </LinearLayout>
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         app:mcv_showOtherDates="all"
         app:mcv_selectionColor="@color/colorSelection"
+        android:background="#f2f2f2"
         />
 
 
@@ -47,30 +58,30 @@
             android:layout_width="0px"
             android:layout_weight="1"
             android:text="Agregar marca"
+            android:textSize="12sp"
             app:icon="@drawable/ic_add_circle_outline_black_24dp"
-            android:drawableTop="@drawable/ic_add_circle_outline_black_24dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/button_marcar_inicio"/>
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:text="Eliminar marca"
             app:icon="@drawable/ic_remove_circle_outline_black_24dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/button_eliminar_marca"/>
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:text="Estimar ciclo"
             app:icon="@drawable/ic_date_range_black_24dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/button_estimar_ciclo"/>
-
     </LinearLayout>
-
 
 </LinearLayout>
