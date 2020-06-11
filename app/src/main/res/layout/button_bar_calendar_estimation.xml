@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="bottom"
-    android:id="@+id/button_bar_calendar_estimation">
+    android:layout_gravity="bottom"
+    android:id="@+id/button_bar_calendar_estimation"
+    android:padding="4sp"
+    >
 
 
     <Button
@@ -14,7 +17,8 @@
             android:layout_weight="1"
             android:text="Volver"
             app:icon="@drawable/ic_keyboard_backspace_black_24dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_margin="2sp"
             android:id="@+id/button_limpiar_estimacion"/>
 
     <Button
@@ -23,7 +27,8 @@
             android:layout_weight="1"
             android:text="Informacion"
             app:icon="@drawable/ic_info_outline_black_24dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_margin="2sp"
+            style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/button_info"/>
 
 

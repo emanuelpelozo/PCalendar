@@ -3,10 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorOvulation">#3399ff</color>
-    <color name="colorPreMenstrual">#FFCC00</color>
-    <color name="colorPeriod">#FF9966</color>
+    <color name="colorOvulation">#66b3ff</color>
+    <color name="colorPreMenstrual">#ffa64d</color>
+    <color name="colorPeriod">#ff80b3</color>
     <color name="colorSelection">@color/colorPrimary</color>
-    <color name="colorTodayMark">#400080</color>
+    <color name="colorTodayMark">#ff3385</color>
     <color name="colorStartCycleMark">#9966FF</color>
 </resources>

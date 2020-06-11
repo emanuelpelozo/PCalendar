@@ -8,13 +8,15 @@
     android:id="@+id/main_activity"
     android:orientation="vertical"
     android:background="#BB86FC"
+    android:gravity="center"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="6sp">
+        android:padding="8sp"
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -42,44 +44,51 @@
         android:layout_height="wrap_content"
         app:mcv_showOtherDates="all"
         app:mcv_selectionColor="@color/colorSelection"
-        android:background="#f2f2f2"
+        android:background="@drawable/border"
+        android:layout_gravity="center"
         />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:gravity="bottom"
-        android:id="@+id/button_bar">
+        android:id="@+id/button_bar"
+        >
 
         <Button
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0px"
             android:layout_weight="1"
             android:text="Agregar marca"
             android:textSize="12sp"
             app:icon="@drawable/ic_add_circle_outline_black_24dp"
             style="@style/Widget.MaterialComponents.Button"
+            android:layout_margin="1sp"
             android:id="@+id/button_marcar_inicio"/>
 
         <Button
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0px"
             android:layout_weight="1"
             android:textSize="12sp"
             android:text="Eliminar marca"
             app:icon="@drawable/ic_remove_circle_outline_black_24dp"
             style="@style/Widget.MaterialComponents.Button"
+            app:strokeColor="#FFFFFF"
+            android:layout_margin="1sp"
             android:id="@+id/button_eliminar_marca"/>
 
         <Button
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0px"
             android:layout_weight="1"
             android:textSize="12sp"
             android:text="Estimar ciclo"
             app:icon="@drawable/ic_date_range_black_24dp"
+            android:layout_margin="1sp"
             style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/button_estimar_ciclo"/>
     </LinearLayout>
